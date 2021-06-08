@@ -6,14 +6,16 @@ tags:
 ## Layer Normalization
 
 normalization的目的是将输入转化为均值为0方差为1的数据，缓解Internal Covariate Shift问题，可以**将数据分布拉到激活函数的非饱和区，具有权重/数据伸缩不变性的特点。起到缓解梯度消失/爆炸、加速训练、正则化的效果。**
-
+<!-- more -->
 LN与BN不同，Layer Normalization在每一个样本（单一样本）上计算均值和方差，然后做归一化，多用于RNN这种输入序列是变长的模型中，每一个时间步都有自己的分布。同一层的所有神经元具有相同的均值和方差。对于使用LN的RNNs，**每个时刻加权后的输入通过标准化被重新调整在合适的范围**，很大程度避免了梯度消失、梯度爆炸问题，隐藏状态的传递更加稳定。
 
-**LN计算公式：** 其中$\alpha$ 和$\beta$ 是可训练的模型参数，需要参与反向传播。
+**LN计算公式：** 其中$\alpha$和$\beta$是可训练的模型参数，需要参与反向传播。
 
-$LN(x_i)=\alpha*\frac{x_i-\mu_L}{\sqrt{(\sigma_L^2+\epsilon)}}+\beta $
+$$
+LN(x_i)=\alpha*\frac{x_i-\mu_L}{\sqrt{(\sigma_L^2+\epsilon)}}+\beta
+$$
 
-**LN代码：** 在x向量的隐层维度(hidden state)的方向上进行计算，得到$\mu$ 和$\sigma^2$ 。
+**LN代码：** 在x向量的隐层维度(hidden state)的方向上进行计算，得到$\mu$和$\sigma^2$。
 
 ```python
 class LayerNorm(nn.Module):

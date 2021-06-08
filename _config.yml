@@ -106,8 +106,4 @@ deploy:
  repo: git@github.com:chenygdlut/chenygdlut.github.io.git
  branch: main
 
-# 数学公式
-math:
-  engine: 'mathjax'
-  mathjax:
-    src: custom_mathjax_source
+
